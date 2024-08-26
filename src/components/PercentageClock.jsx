@@ -18,18 +18,35 @@ export default function PercentageClock() {
   );
 }
 
-function _GetTimePercentage() {
-  const [startTime, endTime, now] = Array(3)
-    .fill(0)
-    .map(() => new Date());
+function _GetTimePercentage(
+  [startHour, startMin, endHour, endMin] = [9, 30, 18, 30],
+  currentDate = new Date()
+) {
+  const [
+      startHourInSeconds,
+      startMinutesInSeconds,
+      endHourInSeconds,
+      endMinutesInSeconds,
+      currentHourInSeconds,
+      currentMinutesInSeconds,
+    ] = [
+      startHour * 3600,
+      startMin * 60,
+      endHour * 3600,
+      endMin * 60,
+      currentDate.getHours() * 3600,
+      currentDate.getMinutes() * 60,
+    ],
+    totalSeconds =
+      endHourInSeconds +
+      endMinutesInSeconds -
+      (startHourInSeconds + startMinutesInSeconds),
+    secondsSinceStart =
+      currentHourInSeconds +
+      currentMinutesInSeconds -
+      (startHourInSeconds + startMinutesInSeconds),
+    progress = (secondsSinceStart / totalSeconds) * 100,
+    result = Math.floor(progress);
 
-  startTime.setHours(9, 30, 0, 0);
-  endTime.setHours(18, 30, 0, 0);
-  now.setHours(now.getHours(), now.getMinutes(), 0, 0);
-
-  const totalTime = endTime - startTime,
-    elapsedTime = now - startTime,
-    percentage = (elapsedTime / totalTime) * 100;
-
-  return Math.floor(-percentage + 100);
+  return result > 100 ? `+${result - 100}` : result;
 }

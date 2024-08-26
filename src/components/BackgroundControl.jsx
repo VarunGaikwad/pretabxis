@@ -8,13 +8,11 @@ BackgroundControl.propTypes = {
 
 export default function BackgroundControl({ children }) {
   const [imageUrl, setImageUrl] = useState(""),
-    {
-      globalModel: {
-        unsplash: {
-          urls: { raw, small_s3 },
-        },
-      },
-    } = useContext(GlobalModel);
+    { globalModel } = useContext(GlobalModel),
+    { raw, small_s3 } = globalModel?.unsplash?.urls || {
+      raw: "",
+      small_s3: "",
+    };
 
   useEffect(() => {
     setImageUrl(small_s3);

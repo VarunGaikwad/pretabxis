@@ -8,3 +8,7 @@ body {
 
   @apply text-white text-sm;
 }
+
+.fav-icon {
+  @apply flex flex-col h-fit w-36 items-center bg-white rounded-xl px-8 py-2 bg-opacity-5 scale-95 cursor-pointer hover:bg-opacity-75 hover:scale-105 hover:text-black font-semibold transition-all duration-500;
+}

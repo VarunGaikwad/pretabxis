@@ -60,25 +60,19 @@ export default function App() {
   }, [globalModel.quotes, date]);
 
   useEffect(() => {
-    if (
-      globalModel.displayName &&
-      Object.keys(globalModel.unsplash).length > 0
-    ) {
-      localStorage.setItem(
-        "unsplash",
-        JSON.stringify(backgroundImage[new Date().getDate()])
-      );
+    const fetchBackgroundImage = () => {
+      const unsplash =
+        backgroundImage[globalModel.displayName ? new Date().getDate() : 0];
+      localStorage.setItem("unsplash", JSON.stringify({ ...unsplash, date }));
       setGlobalModel((prev) => ({
         ...prev,
-        unsplash: backgroundImage[new Date().getDate()],
+        unsplash: { ...unsplash, date },
       }));
-    } else {
-      setGlobalModel((prev) => ({
-        ...prev,
-        unsplash: backgroundImage[0],
-      }));
-    }
-  }, [globalModel.unsplash, globalModel.displayName]);
+    };
+
+    if (globalModel?.unsplash?.date !== date || globalModel.displayName)
+      fetchBackgroundImage();
+  }, [globalModel.displayName, date, globalModel?.unsplash?.date]);
 
   if (globalModel?.displayName) {
     return (

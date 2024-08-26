@@ -35,10 +35,7 @@ export default function AddFavLink() {
     };
 
   return (
-    <div
-      onClick={onOpenDialog}
-      className="flex flex-col h-fit w-16 items-center bg-black rounded-xl p-2 bg-opacity-45 scale-95 cursor-pointer hover:bg-opacity-75 hover:scale-110 transition-all duration-500"
-    >
+    <div onClick={onOpenDialog} className="fav-icon">
       <Plus className="size-10" />
       <span className="mt-2 truncate">Add</span>
       <dialog
