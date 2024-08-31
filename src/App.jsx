@@ -62,7 +62,7 @@ export default function App() {
   useEffect(() => {
     const fetchBackgroundImage = () => {
       const unsplash =
-        backgroundImage[globalModel.displayName ? new Date().getDate() : 0];
+        backgroundImage[globalModel.displayName ? new Date().getDate() - 1 : 0];
       localStorage.setItem("unsplash", JSON.stringify({ ...unsplash, date }));
       setGlobalModel((prev) => ({
         ...prev,
